@@ -1,0 +1,154 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    background: rgba(223, 255, 246, 0.833);
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.usernavbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(0, 146, 110, 0.696);
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+}
+
+.navbar-links li {
+    display: inline;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+.navbar-account a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar-account a:hover {
+    text-decoration: underline;
+}
+
+
+.currentplans, .previousplan, .travelPlans{
+    padding: 40px;
+    margin: 70px ;
+    -webkit-border-radius: 22px 22px 22px 22px;
+    -moz-border-radius: 22px 22px 22px 22px;
+    border-radius: 22px 22px 22px 22px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    width: 50%;
+    position: relative;
+    left: 20%;
+}
+.currentplans{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.plan{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.planimg{
+    width: 30%;
+    height: 50%;
+    -webkit-border-radius: 22px 22px 22px 22px;
+    -moz-border-radius: 22px 22px 22px 22px;
+    border-radius: 22px 22px 22px 22px;
+    position: relative;
+}
+.planimg img{
+    height: 100%;
+    width: 100%;
+    object-fit: fit;
+
+}
+
+.plandetails {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2px;
+}
+
+.label {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.value {
+    font-size: 14px;
+    color: #333;
+}
+
+.action {
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.action:hover {
+    text-decoration: underline;
+}
