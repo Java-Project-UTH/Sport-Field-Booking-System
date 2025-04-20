@@ -131,179 +131,179 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-brand">Sports Field Booking</div>
-        <ul class="navbar-links">
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/fields">Sân thể thao</a></li>
-            <li><a href="/user/profile" class="active">Trang cá nhân</a></li>
-        </ul>
-        <div class="navbar-account">
-            <span>Xin chào, ${user.name}</span> | <a href="/logout">Đăng xuất</a>
-        </div>
-    </div>
-
-    <div class="edit-profile-container">
-        <div class="edit-profile-header">
-            <h2>Cập nhật thông tin cá nhân</h2>
-            <a href="/user/profile" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
-
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">Sports Field Booking</div>
+            <ul class="navbar-links">
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/fields">Sân thể thao</a></li>
+                <li><a href="/user/profile" class="active">Trang cá nhân</a></li>
+            </ul>
+            <div class="navbar-account">
+                <span>Xin chào, ${user.name}</span> | <a href="/logout">Đăng xuất</a>
+            </div>
         </div>
 
-        <c:if test="${param.error eq 'emailExists'}">
-            <div class="error-message">
-                Email đã được sử dụng bởi tài khoản khác. Vui lòng chọn email khác.
+        <div class="edit-profile-container">
+            <div class="edit-profile-header">
+                <h2>Cập nhật thông tin cá nhân</h2>
+                <a href="/user/profile" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+
             </div>
-        </c:if>
 
-        <c:if test="${param.error eq 'wrongPassword'}">
-            <div class="error-message">
-                Mật khẩu hiện tại không chính xác.
-            </div>
-        </c:if>
-
-        <c:if test="${param.error eq 'passwordMismatch'}">
-            <div class="error-message">
-                Mật khẩu mới và xác nhận mật khẩu không khớp.
-            </div>
-        </c:if>
-
-        <form action="/user/update" method="post">
-            <div class="form-section">
-                <h3>Thông tin cơ bản</h3>
-                <div class="edit-profile-form">
-                    <div class="form-group">
-                        <label for="username" class="required-field">Tên đăng nhập</label>
-                        <input type="text" id="username" value="${user.username}" readonly disabled>
-                        <small>Tên đăng nhập không thể thay đổi</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name" class="required-field">Họ và tên</label>
-                        <input type="text" id="name" name="name" value="${user.name}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="required-field">Email</label>
-                        <input type="email" id="email" name="email" value="${user.email}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone_number" class="required-field">Số điện thoại</label>
-                        <input type="tel" id="phone_number" name="phone_number" value="${user.phone_number}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="age">Tuổi</label>
-                        <input type="number" id="age" name="age" value="${user.age}" min="1" max="120">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gender">Giới tính</label>
-                        <select id="gender" name="gender">
-                            <option value="" ${empty user.gender ? 'selected' : ''}>-- Chọn giới tính --</option>
-                            <option value="Nam" ${user.gender eq 'Nam' ? 'selected' : ''}>Nam</option>
-                            <option value="Nữ" ${user.gender eq 'Nữ' ? 'selected' : ''}>Nữ</option>
-                            <option value="Khác" ${user.gender eq 'Khác' ? 'selected' : ''}>Khác</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address">Địa chỉ</label>
-                        <input type="text" id="address" name="address" value="${user.address}">
-                    </div>
+            <c:if test="${param.error eq 'emailExists'}">
+                <div class="error-message">
+                    Email đã được sử dụng bởi tài khoản khác. Vui lòng chọn email khác.
                 </div>
-            </div>
+            </c:if>
 
-            <div class="form-section">
-                <h3>Đổi mật khẩu</h3>
-                <p>Để trống nếu bạn không muốn thay đổi mật khẩu</p>
+            <c:if test="${param.error eq 'wrongPassword'}">
+                <div class="error-message">
+                    Mật khẩu hiện tại không chính xác.
+                </div>
+            </c:if>
 
-                <div class="edit-profile-form">
-                    <div class="form-group">
-                        <label for="currentPassword">Mật khẩu hiện tại</label>
-                        <div class="password-toggle">
-                            <input type="password" id="currentPassword" name="currentPassword">
-                            <span class="password-toggle-icon" onclick="togglePassword('currentPassword')">
-                                    <i class="fas fa-eye"></i>
-                                </span>
+            <c:if test="${param.error eq 'passwordMismatch'}">
+                <div class="error-message">
+                    Mật khẩu mới và xác nhận mật khẩu không khớp.
+                </div>
+            </c:if>
+
+            <form action="/user/update" method="post">
+                <div class="form-section">
+                    <h3>Thông tin cơ bản</h3>
+                    <div class="edit-profile-form">
+                        <div class="form-group">
+                            <label for="username" class="required-field">Tên đăng nhập</label>
+                            <input type="text" id="username" value="${user.username}" readonly disabled>
+                            <small>Tên đăng nhập không thể thay đổi</small>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="newPassword">Mật khẩu mới</label>
-                        <div class="password-toggle">
-                            <input type="password" id="newPassword" name="newPassword">
-                            <span class="password-toggle-icon" onclick="togglePassword('newPassword')">
-                                    <i class="fas fa-eye"></i>
-                                </span>
+                        <div class="form-group">
+                            <label for="name" class="required-field">Họ và tên</label>
+                            <input type="text" id="name" name="name" value="${user.name}" required>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="confirmPassword">Xác nhận mật khẩu mới</label>
-                        <div class="password-toggle">
-                            <input type="password" id="confirmPassword" name="confirmPassword">
-                            <span class="password-toggle-icon" onclick="togglePassword('confirmPassword')">
-                                    <i class="fas fa-eye"></i>
-                                </span>
+                        <div class="form-group">
+                            <label for="email" class="required-field">Email</label>
+                            <input type="email" id="email" name="email" value="${user.email}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone_number" class="required-field">Số điện thoại</label>
+                            <input type="tel" id="phone_number" name="phone_number" value="${user.phone_number}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">Tuổi</label>
+                            <input type="number" id="age" name="age" value="${user.age}" min="1" max="120">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Giới tính</label>
+                            <select id="gender" name="gender">
+                                <option value="" ${empty user.gender ? 'selected' : ''}>-- Chọn giới tính --</option>
+                                <option value="Nam" ${user.gender eq 'Nam' ? 'selected' : ''}>Nam</option>
+                                <option value="Nữ" ${user.gender eq 'Nữ' ? 'selected' : ''}>Nữ</option>
+                                <option value="Khác" ${user.gender eq 'Khác' ? 'selected' : ''}>Khác</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" name="address" value="${user.address}">
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-actions">
-                <a href="/user/profile" class="btn btn-secondary">Hủy</a>
-                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                <div class="form-section">
+                    <h3>Đổi mật khẩu</h3>
+                    <p>Để trống nếu bạn không muốn thay đổi mật khẩu</p>
+
+                    <div class="edit-profile-form">
+                        <div class="form-group">
+                            <label for="currentPassword">Mật khẩu hiện tại</label>
+                            <div class="password-toggle">
+                                <input type="password" id="currentPassword" name="currentPassword">
+                                <span class="password-toggle-icon" onclick="togglePassword('currentPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">Mật khẩu mới</label>
+                            <div class="password-toggle">
+                                <input type="password" id="newPassword" name="newPassword">
+                                <span class="password-toggle-icon" onclick="togglePassword('newPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                            <div class="password-toggle">
+                                <input type="password" id="confirmPassword" name="confirmPassword">
+                                <span class="password-toggle-icon" onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/user/profile" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-</div>
 
-<script>
-    function togglePassword(inputId) {
-        const input = document.getElementById(inputId);
-        const icon = input.nextElementSibling.querySelector('i');
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
 
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    }
-
-    // Form validation
-    document.querySelector('form').addEventListener('submit', function(event) {
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const currentPassword = document.getElementById('currentPassword').value;
-
-        if (newPassword || confirmPassword || currentPassword) {
-            if (!currentPassword) {
-                event.preventDefault();
-                alert('Vui lòng nhập mật khẩu hiện tại để đổi mật khẩu.');
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                event.preventDefault();
-                alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                event.preventDefault();
-                alert('Mật khẩu mới phải có ít nhất 6 ký tự.');
-                return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         }
-    });
-</script>
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const currentPassword = document.getElementById('currentPassword').value;
+
+            if (newPassword || confirmPassword || currentPassword) {
+                if (!currentPassword) {
+                    event.preventDefault();
+                    alert('Vui lòng nhập mật khẩu hiện tại để đổi mật khẩu.');
+                    return;
+                }
+
+                if (newPassword !== confirmPassword) {
+                    event.preventDefault();
+                    alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
+                    return;
+                }
+
+                if (newPassword.length < 6) {
+                    event.preventDefault();
+                    alert('Mật khẩu mới phải có ít nhất 6 ký tự.');
+                    return;
+                }
+            }
+        });
+    </script>
 </body>
 </html>

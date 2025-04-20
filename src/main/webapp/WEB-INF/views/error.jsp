@@ -60,47 +60,46 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-brand">Sports Field Booking</div>
-        <ul class="navbar-links">
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/fields">Sân thể thao</a></li>
-        </ul>
-        <div class="navbar-account">
-            <c:if test="${empty loggedUser}">
-                <a href="/login">Đăng nhập</a> | <a href="/register">Đăng ký</a>
-            </c:if>
-            <c:if test="${not empty loggedUser}">
-                <span>Xin chào, ${loggedUser}</span> | <a href="/logout">Đăng xuất</a>
-            </c:if>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">Sports Field Booking</div>
+            <ul class="navbar-links">
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/fields">Sân thể thao</a></li>
+            </ul>
+            <div class="navbar-account">
+                <c:if test="${empty loggedUser}">
+                    <a href="/login">Đăng nhập</a> | <a href="/register">Đăng ký</a>
+                </c:if>
+                <c:if test="${not empty loggedUser}">
+                    <span>Xin chào, ${loggedUser}</span> | <a href="/logout">Đăng xuất</a>
+                </c:if>
+            </div>
+        </div>
+
+        <div class="error-container">
+            <div class="error-content">
+                <h1>Đã xảy ra lỗi</h1>
+                <p class="error-message">${errorMessage != null ? errorMessage : 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.'}</p>
+
+                <div class="error-details">
+                    <p>Nếu bạn đang cố gắng đặt sân, vui lòng kiểm tra:</p>
+                    <ul>
+                        <li>Thời gian bắt đầu phải sau thời điểm hiện tại</li>
+                        <li>Thời gian kết thúc phải sau thời gian bắt đầu</li>
+                        <li>Sân có thể đã được đặt trong khoảng thời gian bạn chọn</li>
+                        <li>Định dạng ngày giờ phải hợp lệ</li>
+                    </ul>
+                </div>
+
+                <div class="error-actions">
+                    <a href="javascript:history.back()" class="btn btn-secondary">Quay lại</a>
+                    <a href="/" class="btn btn-primary">Về trang chủ</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="error-container">
-        <div class="error-content">
-            <h1>Đã xảy ra lỗi</h1>
-            <p class="error-message">${errorMessage != null ? errorMessage : 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.'}</p>
-
-            <div class="error-details">
-                <p>Nếu bạn đang cố gắng đặt sân, vui lòng kiểm tra:</p>
-                <ul>
-                    <li>Thời gian bắt đầu phải sau thời điểm hiện tại</li>
-                    <li>Thời gian kết thúc phải sau thời gian bắt đầu</li>
-                    <li>Sân có thể đã được đặt trong khoảng thời gian bạn chọn</li>
-                    <li>Định dạng ngày giờ phải hợp lệ</li>
-                </ul>
-            </div>
-
-            <div class="error-actions">
-                <a href="javascript:history.back()" class="btn btn-secondary">Quay lại</a>
-                <a href="/" class="btn btn-primary">Về trang chủ</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="/js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
-

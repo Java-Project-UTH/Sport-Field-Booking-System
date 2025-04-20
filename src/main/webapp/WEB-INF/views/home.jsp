@@ -402,182 +402,182 @@
     </style>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="container navbar-content">
-        <a href="/" class="navbar-brand">Sports Field Booking</a>
-        <ul class="navbar-links">
-            <li><a href="/fields">Sân thể thao</a></li>
-            <li><a href="#features">Tính năng</a></li>
-            <li><a href="#services">Dịch vụ</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
-        </ul>
-        <div class="navbar-account">
-            <c:if test="${empty loggedUser}">
-                <a href="/login"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
-                <a href="/register"><i class="fas fa-user-plus"></i> Đăng ký</a>
-            </c:if>
-            <c:if test="${not empty loggedUser}">
-                <span><i class="fas fa-user"></i> Xin chào, ${loggedUser}</span>
-                <a href="/user/profile"><i class="fas fa-user-circle"></i> Trang cá nhân</a>
-                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
-            </c:if>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="/" class="navbar-brand">Sports Field Booking</a>
+            <ul class="navbar-links">
+                <li><a href="/fields">Sân thể thao</a></li>
+                <li><a href="#features">Tính năng</a></li>
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+            <div class="navbar-account">
+                <c:if test="${empty loggedUser}">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                    <a href="/register"><i class="fas fa-user-plus"></i> Đăng ký</a>
+                </c:if>
+                <c:if test="${not empty loggedUser}">
+                    <span><i class="fas fa-user"></i> Xin chào, ${loggedUser}</span>
+                    <a href="/user/profile"><i class="fas fa-user-circle"></i> Trang cá nhân</a>
+                    <a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                </c:if>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container hero-content">
-        <h1>Đặt sân thể thao dễ dàng và nhanh chóng</h1>
-        <p>Hệ thống đặt sân thể thao trực tuyến giúp bạn tìm kiếm và đặt sân phù hợp với nhu cầu của mình một cách dễ dàng và tiện lợi.</p>
-        <div class="btn-group">
-            <a href="/fields" class="btn btn-primary"><i class="fas fa-search"></i> Tìm sân ngay</a>
-            <a href="/register" class="btn"><i class="fas fa-user-plus"></i> Đăng ký tài khoản</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Đặt sân thể thao dễ dàng và nhanh chóng</h1>
+            <p>Hệ thống đặt sân thể thao trực tuyến giúp bạn tìm kiếm và đặt sân phù hợp với nhu cầu của mình một cách dễ dàng và tiện lợi.</p>
+            <div class="btn-group">
+                <a href="/fields" class="btn btn-primary"><i class="fas fa-search"></i> Tìm sân ngay</a>
+                <a href="/register" class="btn"><i class="fas fa-user-plus"></i> Đăng ký tài khoản</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Features Section -->
-<section class="features" id="features">
-    <div class="container">
-        <div class="section-title">
-            <h2>Tại sao chọn chúng tôi?</h2>
-            <p>Chúng tôi cung cấp nền tảng đặt sân thể thao hiện đại với nhiều tính năng hữu ích</p>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tại sao chọn chúng tôi?</h2>
+                <p>Chúng tôi cung cấp nền tảng đặt sân thể thao hiện đại với nhiều tính năng hữu ích</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Tìm kiếm dễ dàng</h3>
+                    <p>Tìm kiếm sân thể thao theo loại, địa điểm, giá cả và các tiện ích đi kèm một cách nhanh chóng.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3>Đặt sân linh hoạt</h3>
+                    <p>Đặt sân theo ngày, giờ phù hợp với lịch trình của bạn, có thể đặt trước nhiều ngày.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Đánh giá thực tế</h3>
+                    <p>Xem đánh giá từ người dùng khác để lựa chọn sân phù hợp nhất với nhu cầu của bạn.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Tiết kiệm thời gian</h3>
+                    <p>Không cần gọi điện hay đến tận nơi để đặt sân, tất cả có thể thực hiện trực tuyến.</p>
+                </div>
+            </div>
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3>Tìm kiếm dễ dàng</h3>
-                <p>Tìm kiếm sân thể thao theo loại, địa điểm, giá cả và các tiện ích đi kèm một cách nhanh chóng.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="far fa-calendar-alt"></i>
-                </div>
-                <h3>Đặt sân linh hoạt</h3>
-                <p>Đặt sân theo ngày, giờ phù hợp với lịch trình của bạn, có thể đặt trước nhiều ngày.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3>Đánh giá thực tế</h3>
-                <p>Xem đánh giá từ người dùng khác để lựa chọn sân phù hợp nhất với nhu cầu của bạn.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>Tiết kiệm thời gian</h3>
-                <p>Không cần gọi điện hay đến tận nơi để đặt sân, tất cả có thể thực hiện trực tuyến.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Services Section -->
-<section class="services" id="services">
-    <div class="container">
-        <div class="section-title">
-            <h2>Dịch vụ của chúng tôi</h2>
-            <p>Chúng tôi cung cấp đa dạng các loại sân thể thao để đáp ứng nhu cầu của bạn</p>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dịch vụ của chúng tôi</h2>
+                <p>Chúng tôi cung cấp đa dạng các loại sân thể thao để đáp ứng nhu cầu của bạn</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/images1/football1.jpg" alt="Sân bóng đá">
+                    </div>
+                    <div class="service-content">
+                        <h3>Sân bóng đá</h3>
+                        <p>Đa dạng các loại sân bóng đá từ 5 người đến 11 người, sân cỏ nhân tạo chất lượng cao.</p>
+                        <a href="/fields?type=FOOTBALL" class="btn btn-primary">Xem sân</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/images1/tennis1.jpg" alt="Sân tennis">
+                    </div>
+                    <div class="service-content">
+                        <h3>Sân tennis</h3>
+                        <p>Sân tennis tiêu chuẩn quốc tế với nhiều loại mặt sân khác nhau để lựa chọn.</p>
+                        <a href="/fields?type=TENNIS" class="btn btn-primary">Xem sân</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="/images1/badminton1.jpg" alt="Sân cầu lông">
+                    </div>
+                    <div class="service-content">
+                        <h3>Sân cầu lông</h3>
+                        <p>Sân cầu lông trong nhà với ánh sáng tốt, mặt sân chất lượng cao và dịch vụ hoàn hảo.</p>
+                        <a href="/fields?type=BADMINTON" class="btn btn-primary">Xem sân</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="/images1/football1.jpg" alt="Sân bóng đá">
-                </div>
-                <div class="service-content">
-                    <h3>Sân bóng đá</h3>
-                    <p>Đa dạng các loại sân bóng đá từ 5 người đến 11 người, sân cỏ nhân tạo chất lượng cao.</p>
-                    <a href="/fields?type=FOOTBALL" class="btn btn-primary">Xem sân</a>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="/images1/tennis1.jpg" alt="Sân tennis">
-                </div>
-                <div class="service-content">
-                    <h3>Sân tennis</h3>
-                    <p>Sân tennis tiêu chuẩn quốc tế với nhiều loại mặt sân khác nhau để lựa chọn.</p>
-                    <a href="/fields?type=TENNIS" class="btn btn-primary">Xem sân</a>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="/images1/badminton1.jpg" alt="Sân cầu lông">
-                </div>
-                <div class="service-content">
-                    <h3>Sân cầu lông</h3>
-                    <p>Sân cầu lông trong nhà với ánh sáng tốt, mặt sân chất lượng cao và dịch vụ hoàn hảo.</p>
-                    <a href="/fields?type=BADMINTON" class="btn btn-primary">Xem sân</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- CTA Section -->
-<section class="cta">
-    <div class="container">
-        <h2>Bắt đầu đặt sân ngay hôm nay</h2>
-        <p>Đăng ký tài khoản miễn phí và trải nghiệm dịch vụ đặt sân thể thao tốt nhất của chúng tôi.</p>
-        <a href="/register" class="btn">Đăng ký ngay</a>
-    </div>
-</section>
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Bắt đầu đặt sân ngay hôm nay</h2>
+            <p>Đăng ký tài khoản miễn phí và trải nghiệm dịch vụ đặt sân thể thao tốt nhất của chúng tôi.</p>
+            <a href="/register" class="btn">Đăng ký ngay</a>
+        </div>
+    </section>
 
-<!-- Footer -->
-<footer class="footer" id="contact">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Sports Field Booking</h3>
-                <p>Hệ thống đặt sân thể thao trực tuyến hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm và đặt sân phù hợp với nhu cầu của mình.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sports Field Booking</h3>
+                    <p>Hệ thống đặt sân thể thao trực tuyến hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm và đặt sân phù hợp với nhu cầu của mình.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Liên kết nhanh</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/fields">Sân thể thao</a></li>
+                        <li><a href="#features">Tính năng</a></li>
+                        <li><a href="#services">Dịch vụ</a></li>
+                        <li><a href="/login">Đăng nhập</a></li>
+                        <li><a href="/register">Đăng ký</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Dịch vụ</h3>
+                    <ul class="footer-links">
+                        <li><a href="/fields?type=FOOTBALL">Sân bóng đá</a></li>
+                        <li><a href="/fields?type=TENNIS">Sân tennis</a></li>
+                        <li><a href="/fields?type=BADMINTON">Sân cầu lông</a></li>
+                        <li><a href="/fields?type=BASKETBALL">Sân bóng rổ</a></li>
+                        <li><a href="/fields?type=VOLLEYBALL">Sân bóng chuyền</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope"></i> info@sportsbooking.com</li>
+                        <li><i class="fas fa-clock"></i> Thứ 2 - Chủ nhật: 8:00 - 22:00</li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer-column">
-                <h3>Liên kết nhanh</h3>
-                <ul class="footer-links">
-                    <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/fields">Sân thể thao</a></li>
-                    <li><a href="#features">Tính năng</a></li>
-                    <li><a href="#services">Dịch vụ</a></li>
-                    <li><a href="/login">Đăng nhập</a></li>
-                    <li><a href="/register">Đăng ký</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Dịch vụ</h3>
-                <ul class="footer-links">
-                    <li><a href="/fields?type=FOOTBALL">Sân bóng đá</a></li>
-                    <li><a href="/fields?type=TENNIS">Sân tennis</a></li>
-                    <li><a href="/fields?type=BADMINTON">Sân cầu lông</a></li>
-                    <li><a href="/fields?type=BASKETBALL">Sân bóng rổ</a></li>
-                    <li><a href="/fields?type=VOLLEYBALL">Sân bóng chuyền</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Liên hệ</h3>
-                <ul class="footer-links">
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
-                    <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
-                    <li><i class="fas fa-envelope"></i> info@sportsbooking.com</li>
-                    <li><i class="fas fa-clock"></i> Thứ 2 - Chủ nhật: 8:00 - 22:00</li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sports Field Booking System. All Rights Reserved.</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Sports Field Booking System. All Rights Reserved.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,105 @@
+/* General form styling */
+form {
+    width: 100%;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table row styling */
+tr {
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+/* Table header styling */
+th {
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Button-like input styling */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Placeholder styling */
+input::placeholder {
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Label styling */
+label {
+    margin-right: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Select dropdown styling */
+select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4z'/%3E%3C/svg%3E") no-repeat right 10px center;
+    background-size: 10px 10px;
+}
+
+/* Div for gender styling */
+div {
+    margin-bottom: 15px;
+}
+
+/* Overall table styling for even alignment */
+table th:nth-child(2) {
+    text-align: left;
+}
+.register-card h2{
+    color:  rgba(0, 146, 110, 0.984);
+}
+/* Button styling */
+input[type="submit"],
+button {
+    width: 100%;
+    padding: 10px 15px;
+    background-color:  rgba(207, 48, 0, 0.751);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color:   rgba(183, 43, 0, 0.927);
+}

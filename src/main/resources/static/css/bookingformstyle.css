@@ -1,0 +1,173 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+   
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    background:rgba(223, 255, 246, 0.833);
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.usernavbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(0, 146, 110, 0.696);
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+}
+
+.navbar-links li {
+    display: inline;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+.navbar-account a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar-account a:hover {
+    text-decoration: underline;
+}
+
+.bookingform{
+    margin: 100px;
+    width: 40%;
+    /* height: ; */
+    padding:5% ;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    -webkit-border-radius: 22px 22px 22px 22px;
+    -moz-border-radius: 22px 22px 22px 22px;
+    border-radius: 22px 22px 22px 22px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    left: 20%;
+}
+.bookingform{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    /* display: flex;
+    justify-content: center; */
+    
+}
+.bookingform h2{
+    color:  rgba(207, 48, 0, 0.751);;
+}
+form {
+    width: 100%;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table row styling */
+tr {
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+/* Table header styling */
+th {
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+}
+
+table th:nth-child(2) {
+    text-align: left;
+}
+select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4z'/%3E%3C/svg%3E") no-repeat right 10px center;
+    background-size: 10px 10px;
+}
+.booking-card input[type="txt"],
+select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+input[type="submit"],
+button {
+    width: 100%;
+    padding: 10px 15px;
+    background-color:  rgba(207, 48, 0, 0.751);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color:   rgba(183, 43, 0, 0.927);
+}
+.logout{
+    background:transparent;
+    color: #333;
+}
+.logout:hover{
+    background:transparent;
+}

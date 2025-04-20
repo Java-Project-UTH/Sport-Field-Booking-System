@@ -267,216 +267,216 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-brand">Sports Field Booking</div>
-        <ul class="navbar-links">
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/fields">Sân thể thao</a></li>
-            <li><a href="/user/profile" class="active">Trang cá nhân</a></li>
-        </ul>
-        <div class="navbar-account">
-            <span>Xin chào, ${user.name}</span> | <a href="/logout">Đăng xuất</a>
-        </div>
-    </div>
-
-    <div class="profile-container">
-        <div class="profile-sidebar">
-            <div class="profile-avatar">
-                <img src="/images/profile-avatar.png" alt="Avatar">
-            </div>
-            <h3>${user.name}</h3>
-            <div class="profile-role">
-                <c:choose>
-                    <c:when test="${user.role eq 'ADMIN'}">Quản trị viên</c:when>
-                    <c:otherwise>Người dùng</c:otherwise>
-                </c:choose>
-            </div>
-            <p>${user.email}</p>
-            <ul class="profile-menu">
-                <li><a href="#profile-info" class="active"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
-                <li><a href="#active-bookings"><i class="fas fa-calendar-check"></i> Đặt sân hiện tại</a></li>
-                <li><a href="#pending-bookings"><i class="fas fa-clock"></i> Đặt sân chờ xác nhận</a></li>
-                <li><a href="#completed-bookings"><i class="fas fa-history"></i> Lịch sử đặt sân</a></li>
-                <c:if test="${user.role eq 'ADMIN'}">
-                    <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Quản trị</a></li>
-                </c:if>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">Sports Field Booking</div>
+            <ul class="navbar-links">
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/fields">Sân thể thao</a></li>
+                <li><a href="/user/profile" class="active">Trang cá nhân</a></li>
             </ul>
+            <div class="navbar-account">
+                <span>Xin chào, ${user.name}</span> | <a href="/logout">Đăng xuất</a>
+            </div>
         </div>
 
-        <div class="profile-content">
-            <div id="profile-info" class="profile-section active">
-                <div class="profile-section-header">
-                    <h2>Thông tin cá nhân</h2>
-                    <a href="/user/edit-profile" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Chỉnh sửa</a>
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <div class="profile-avatar">
+                    <img src="/images/profile-avatar.png" alt="Avatar">
                 </div>
-
-                <c:if test="${param.success eq 'updated'}">
-                    <div class="success-message">
-                        Thông tin cá nhân đã được cập nhật thành công!
-                    </div>
-                </c:if>
-
-                <div class="profile-info-details">
-                    <div class="info-group">
-                        <label>Tên đăng nhập:</label>
-                        <span>${user.username}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Họ và tên:</label>
-                        <span>${user.name}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Email:</label>
-                        <span>${user.email}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Số điện thoại:</label>
-                        <span>${user.phone_number}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Tuổi:</label>
-                        <span>${user.age}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Giới tính:</label>
-                        <span>${user.gender}</span>
-                    </div>
-                    <div class="info-group">
-                        <label>Địa chỉ:</label>
-                        <span>${user.address}</span>
-                    </div>
+                <h3>${user.name}</h3>
+                <div class="profile-role">
+                    <c:choose>
+                        <c:when test="${user.role eq 'ADMIN'}">Quản trị viên</c:when>
+                        <c:otherwise>Người dùng</c:otherwise>
+                    </c:choose>
                 </div>
-                <div class="profile-actions">
-                    <button class="btn btn-primary">Cập nhật thông tin</button>
-                </div>
+                <p>${user.email}</p>
+                <ul class="profile-menu">
+                    <li><a href="#profile-info" class="active"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
+                    <li><a href="#active-bookings"><i class="fas fa-calendar-check"></i> Đặt sân hiện tại</a></li>
+                    <li><a href="#pending-bookings"><i class="fas fa-clock"></i> Đặt sân chờ xác nhận</a></li>
+                    <li><a href="#completed-bookings"><i class="fas fa-history"></i> Lịch sử đặt sân</a></li>
+                    <c:if test="${user.role eq 'ADMIN'}">
+                        <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Quản trị</a></li>
+                    </c:if>
+                </ul>
             </div>
 
-            <div id="active-bookings" class="profile-section">
-                <h2>Đặt sân hiện tại</h2>
-                <c:if test="${empty activeBookings}">
-                    <p class="no-data">Bạn không có đặt sân nào đang hoạt động.</p>
-                </c:if>
-                <c:if test="${not empty activeBookings}">
-                    <div class="bookings-list">
-                        <c:forEach items="${activeBookings}" var="booking">
-                            <div class="booking-card">
-                                <div class="booking-header">
-                                    <h3>Mã đặt sân: #${booking.id}</h3>
-                                    <span class="booking-status confirmed">Đã xác nhận</span>
-                                </div>
-                                <div class="booking-details">
-                                    <div class="booking-info">
-                                        <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
-                                        <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
-                                        <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
-                                        <c:if test="${not empty booking.notes}">
-                                            <p><strong>Ghi chú:</strong> ${booking.notes}</p>
-                                        </c:if>
-                                    </div>
-                                    <div class="booking-actions">
-                                        <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
-                                        <form action="/bookings/${booking.id}/cancel" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đặt sân này?');">
-                                            <button type="submit" class="btn btn-danger">Hủy đặt sân</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
+            <div class="profile-content">
+                <div id="profile-info" class="profile-section active">
+                    <div class="profile-section-header">
+                        <h2>Thông tin cá nhân</h2>
+                        <a href="/user/edit-profile" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Chỉnh sửa</a>
                     </div>
-                </c:if>
-            </div>
 
-            <div id="pending-bookings" class="profile-section">
-                <h2>Đặt sân chờ xác nhận</h2>
-                <c:if test="${empty pendingBookings}">
-                    <p class="no-data">Bạn không có đặt sân nào đang chờ xác nhận.</p>
-                </c:if>
-                <c:if test="${not empty pendingBookings}">
-                    <div class="bookings-list">
-                        <c:forEach items="${pendingBookings}" var="booking">
-                            <div class="booking-card">
-                                <div class="booking-header">
-                                    <h3>Mã đặt sân: #${booking.id}</h3>
-                                    <span class="booking-status pending">Chờ xác nhận</span>
-                                </div>
-                                <div class="booking-details">
-                                    <div class="booking-info">
-                                        <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
-                                        <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
-                                        <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
-                                        <c:if test="${not empty booking.notes}">
-                                            <p><strong>Ghi chú:</strong> ${booking.notes}</p>
-                                        </c:if>
-                                    </div>
-                                    <div class="booking-actions">
-                                        <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
-                                        <form action="/bookings/${booking.id}/cancel" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đặt sân này?');">
-                                            <button type="submit" class="btn btn-danger">Hủy đặt sân</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </c:if>
-            </div>
+                    <c:if test="${param.success eq 'updated'}">
+                        <div class="success-message">
+                            Thông tin cá nhân đã được cập nhật thành công!
+                        </div>
+                    </c:if>
 
-            <div id="completed-bookings" class="profile-section">
-                <h2>Lịch sử đặt sân</h2>
-                <c:if test="${empty completedBookings}">
-                    <p class="no-data">Bạn chưa có lịch sử đặt sân nào.</p>
-                </c:if>
-                <c:if test="${not empty completedBookings}">
-                    <div class="bookings-list">
-                        <c:forEach items="${completedBookings}" var="booking">
-                            <div class="booking-card">
-                                <div class="booking-header">
-                                    <h3>Mã đặt sân: #${booking.id}</h3>
-                                    <span class="booking-status completed">Đã hoàn thành</span>
-                                </div>
-                                <div class="booking-details">
-                                    <div class="booking-info">
-                                        <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
-                                        <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
-                                        <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
-                                        <c:if test="${not empty booking.notes}">
-                                            <p><strong>Ghi chú:</strong> ${booking.notes}</p>
-                                        </c:if>
-                                    </div>
-                                    <div class="booking-actions">
-                                        <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
-                                        <a href="/fields/${booking.fieldId}#review-form" class="btn btn-primary">Đánh giá</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
+                    <div class="profile-info-details">
+                        <div class="info-group">
+                            <label>Tên đăng nhập:</label>
+                            <span>${user.username}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Họ và tên:</label>
+                            <span>${user.name}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Email:</label>
+                            <span>${user.email}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Số điện thoại:</label>
+                            <span>${user.phone_number}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Tuổi:</label>
+                            <span>${user.age}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Giới tính:</label>
+                            <span>${user.gender}</span>
+                        </div>
+                        <div class="info-group">
+                            <label>Địa chỉ:</label>
+                            <span>${user.address}</span>
+                        </div>
                     </div>
-                </c:if>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary">Cập nhật thông tin</button>
+                    </div>
+                </div>
+
+                <div id="active-bookings" class="profile-section">
+                    <h2>Đặt sân hiện tại</h2>
+                    <c:if test="${empty activeBookings}">
+                        <p class="no-data">Bạn không có đặt sân nào đang hoạt động.</p>
+                    </c:if>
+                    <c:if test="${not empty activeBookings}">
+                        <div class="bookings-list">
+                            <c:forEach items="${activeBookings}" var="booking">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <h3>Mã đặt sân: #${booking.id}</h3>
+                                        <span class="booking-status confirmed">Đã xác nhận</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <div class="booking-info">
+                                            <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
+                                            <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
+                                            <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
+                                            <c:if test="${not empty booking.notes}">
+                                                <p><strong>Ghi chú:</strong> ${booking.notes}</p>
+                                            </c:if>
+                                        </div>
+                                        <div class="booking-actions">
+                                            <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
+                                            <form action="/bookings/${booking.id}/cancel" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đặt sân này?');">
+                                                <button type="submit" class="btn btn-danger">Hủy đặt sân</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
+
+                <div id="pending-bookings" class="profile-section">
+                    <h2>Đặt sân chờ xác nhận</h2>
+                    <c:if test="${empty pendingBookings}">
+                        <p class="no-data">Bạn không có đặt sân nào đang chờ xác nhận.</p>
+                    </c:if>
+                    <c:if test="${not empty pendingBookings}">
+                        <div class="bookings-list">
+                            <c:forEach items="${pendingBookings}" var="booking">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <h3>Mã đặt sân: #${booking.id}</h3>
+                                        <span class="booking-status pending">Chờ xác nhận</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <div class="booking-info">
+                                            <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
+                                            <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
+                                            <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
+                                            <c:if test="${not empty booking.notes}">
+                                                <p><strong>Ghi chú:</strong> ${booking.notes}</p>
+                                            </c:if>
+                                        </div>
+                                        <div class="booking-actions">
+                                            <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
+                                            <form action="/bookings/${booking.id}/cancel" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đặt sân này?');">
+                                                <button type="submit" class="btn btn-danger">Hủy đặt sân</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
+
+                <div id="completed-bookings" class="profile-section">
+                    <h2>Lịch sử đặt sân</h2>
+                    <c:if test="${empty completedBookings}">
+                        <p class="no-data">Bạn chưa có lịch sử đặt sân nào.</p>
+                    </c:if>
+                    <c:if test="${not empty completedBookings}">
+                        <div class="bookings-list">
+                            <c:forEach items="${completedBookings}" var="booking">
+                                <div class="booking-card">
+                                    <div class="booking-header">
+                                        <h3>Mã đặt sân: #${booking.id}</h3>
+                                        <span class="booking-status completed">Đã hoàn thành</span>
+                                    </div>
+                                    <div class="booking-details">
+                                        <div class="booking-info">
+                                            <p><strong>Thời gian:</strong> <fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /> - <fmt:formatDate value="${booking.endTime}" pattern="HH:mm" /></p>
+                                            <p><strong>Tổng tiền:</strong> <fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol="VNĐ" /></p>
+                                            <p><strong>Số người chơi:</strong> ${booking.numberOfPlayers}</p>
+                                            <c:if test="${not empty booking.notes}">
+                                                <p><strong>Ghi chú:</strong> ${booking.notes}</p>
+                                            </c:if>
+                                        </div>
+                                        <div class="booking-actions">
+                                            <a href="/bookings/${booking.id}" class="btn btn-secondary">Chi tiết</a>
+                                            <a href="/fields/${booking.fieldId}#review-form" class="btn btn-primary">Đánh giá</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="/js/script.js"></script>
-<script>
-    // Tab switching functionality
-    document.querySelectorAll('.profile-menu a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+    <script src="/js/script.js"></script>
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.profile-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
 
-            // Remove active class from all links and sections
-            document.querySelectorAll('.profile-menu a').forEach(item => item.classList.remove('active'));
-            document.querySelectorAll('.profile-section').forEach(section => section.classList.remove('active'));
+                // Remove active class from all links and sections
+                document.querySelectorAll('.profile-menu a').forEach(item => item.classList.remove('active'));
+                document.querySelectorAll('.profile-section').forEach(section => section.classList.remove('active'));
 
-            // Add active class to clicked link
-            this.classList.add('active');
+                // Add active class to clicked link
+                this.classList.add('active');
 
-            // Show corresponding section
-            const targetId = this.getAttribute('href').substring(1);
-            document.getElementById(targetId).classList.add('active');
+                // Show corresponding section
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).classList.add('active');
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>

@@ -1,0 +1,87 @@
+/* Icon styles using background images */
+.icon-users {
+    background-image: url('/images/profilelogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.icon-fields {
+    background-image: url('/images/DELHI.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.icon-bookings {
+    background-image: url('/images/CHENNAI.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.icon-location {
+    background-image: url('/images/PUNE.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+/* Stat icons for admin dashboard */
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon.users-icon::before {
+    content: "";
+    background-image: url('/images/profilelogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+
+.stat-icon.fields-icon::before {
+    content: "";
+    background-image: url('/images/DELHI.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.stat-icon.bookings-icon::before {
+    content: "";
+    background-image: url('/images/CHENNAI.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}

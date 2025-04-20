@@ -91,35 +91,35 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="navbar">
-        <div class="navbar-brand">Sports Field Booking</div>
-        <ul class="navbar-links">
-            <li><a href="/">Trang chủ</a></li>
-            <li><a href="/fields">Sân thể thao</a></li>
-            <li><a href="/user/profile">Trang cá nhân</a></li>
-        </ul>
-        <div class="navbar-account">
-            <span>Xin chào, ${booking.username}</span> | <a href="/logout">Đăng xuất</a>
-        </div>
-    </div>
-
-    <div class="success-container">
-        <div class="success-icon"></div>
-        <h2 class="success-title">Thanh toán thành công!</h2>
-        <p class="success-message">Cảm ơn bạn đã đặt sân. Đặt sân của bạn đã được xác nhận.</p>
-
-        <div class="booking-details">
-            <h3>Chi tiết đặt sân #${booking.id}</h3>
-
-            <div class="detail-item">
-                <span>Sân:</span>
-                <span>${field.fieldName}</span>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-brand">Sports Field Booking</div>
+            <ul class="navbar-links">
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/fields">Sân thể thao</a></li>
+                <li><a href="/user/profile">Trang cá nhân</a></li>
+            </ul>
+            <div class="navbar-account">
+                <span>Xin chào, ${booking.username}</span> | <a href="/logout">Đăng xuất</a>
             </div>
+        </div>
 
-            <div class="detail-item">
-                <span>Loại sân:</span>
-                <span>
+        <div class="success-container">
+            <div class="success-icon"></div>
+            <h2 class="success-title">Thanh toán thành công!</h2>
+            <p class="success-message">Cảm ơn bạn đã đặt sân. Đặt sân của bạn đã được xác nhận.</p>
+
+            <div class="booking-details">
+                <h3>Chi tiết đặt sân #${booking.id}</h3>
+
+                <div class="detail-item">
+                    <span>Sân:</span>
+                    <span>${field.fieldName}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span>Loại sân:</span>
+                    <span>
                         <c:choose>
                             <c:when test="${field.fieldType eq 'FOOTBALL'}">Sân bóng đá</c:when>
                             <c:when test="${field.fieldType eq 'BASKETBALL'}">Sân bóng rổ</c:when>
@@ -130,46 +130,46 @@
                             <c:otherwise>${field.fieldType}</c:otherwise>
                         </c:choose>
                     </span>
-            </div>
-
-            <div class="detail-item">
-                <span>Địa điểm:</span>
-                <span>${field.location}</span>
-            </div>
-
-            <div class="detail-item">
-                <span>Thời gian bắt đầu:</span>
-                <span><fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /></span>
-            </div>
-
-            <div class="detail-item">
-                <span>Thời gian kết thúc:</span>
-                <span><fmt:formatDate value="${booking.endTime}" pattern="dd/MM/yyyy HH:mm" /></span>
-            </div>
-
-            <div class="detail-item">
-                <span>Số người chơi:</span>
-                <span>${booking.numberOfPlayers}</span>
-            </div>
-
-            <div class="detail-item total">
-                <span>Tổng tiền:</span>
-                <span><fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol=""/> VNĐ</span>
-            </div>
-        </div>
-
-        <c:if test="${not empty payment}">
-            <div class="booking-details" style="margin-top: 20px;">
-                <h3>Thông tin thanh toán</h3>
-
-                <div class="detail-item">
-                    <span>Mã giao dịch:</span>
-                    <span>${payment.transactionId}</span>
                 </div>
 
                 <div class="detail-item">
-                    <span>Phương thức thanh toán:</span>
-                    <span>
+                    <span>Địa điểm:</span>
+                    <span>${field.location}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span>Thời gian bắt đầu:</span>
+                    <span><fmt:formatDate value="${booking.startTime}" pattern="dd/MM/yyyy HH:mm" /></span>
+                </div>
+
+                <div class="detail-item">
+                    <span>Thời gian kết thúc:</span>
+                    <span><fmt:formatDate value="${booking.endTime}" pattern="dd/MM/yyyy HH:mm" /></span>
+                </div>
+
+                <div class="detail-item">
+                    <span>Số người chơi:</span>
+                    <span>${booking.numberOfPlayers}</span>
+                </div>
+
+                <div class="detail-item total">
+                    <span>Tổng tiền:</span>
+                    <span><fmt:formatNumber value="${booking.totalPrice}" type="currency" currencySymbol=""/> VNĐ</span>
+                </div>
+            </div>
+
+            <c:if test="${not empty payment}">
+                <div class="booking-details" style="margin-top: 20px;">
+                    <h3>Thông tin thanh toán</h3>
+
+                    <div class="detail-item">
+                        <span>Mã giao dịch:</span>
+                        <span>${payment.transactionId}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span>Phương thức thanh toán:</span>
+                        <span>
                             <c:choose>
                                 <c:when test="${payment.method eq 'CREDIT_CARD'}">Thẻ tín dụng/ghi nợ</c:when>
                                 <c:when test="${payment.method eq 'BANK_TRANSFER'}">Internet Banking</c:when>
@@ -178,16 +178,16 @@
                                 <c:otherwise>${payment.method}</c:otherwise>
                             </c:choose>
                         </span>
-                </div>
+                    </div>
 
-                <div class="detail-item">
-                    <span>Thời gian thanh toán:</span>
-                    <span><fmt:formatDate value="${payment.paymentTime}" pattern="dd/MM/yyyy HH:mm:ss" /></span>
-                </div>
+                    <div class="detail-item">
+                        <span>Thời gian thanh toán:</span>
+                        <span><fmt:formatDate value="${payment.paymentTime}" pattern="dd/MM/yyyy HH:mm:ss" /></span>
+                    </div>
 
-                <div class="detail-item">
-                    <span>Trạng thái:</span>
-                    <span>
+                    <div class="detail-item">
+                        <span>Trạng thái:</span>
+                        <span>
                             <c:choose>
                                 <c:when test="${payment.status eq 'COMPLETED'}">Thành công</c:when>
                                 <c:when test="${payment.status eq 'PENDING'}">Chờ xử lý</c:when>
@@ -196,25 +196,24 @@
                                 <c:otherwise>${payment.status}</c:otherwise>
                             </c:choose>
                         </span>
-                </div>
-
-                <c:if test="${not empty payment.notes}">
-                    <div class="detail-item">
-                        <span>Ghi chú:</span>
-                        <span>${payment.notes}</span>
                     </div>
-                </c:if>
-            </div>
-        </c:if>
 
-        <div class="action-buttons">
-            <a href="/bookings/${booking.id}" class="btn btn-primary">Xem chi tiết đặt sân</a>
-            <a href="/user/profile" class="btn btn-secondary">Về trang cá nhân</a>
+                    <c:if test="${not empty payment.notes}">
+                        <div class="detail-item">
+                            <span>Ghi chú:</span>
+                            <span>${payment.notes}</span>
+                        </div>
+                    </c:if>
+                </div>
+            </c:if>
+
+            <div class="action-buttons">
+                <a href="/bookings/${booking.id}" class="btn btn-primary">Xem chi tiết đặt sân</a>
+                <a href="/user/profile" class="btn btn-secondary">Về trang cá nhân</a>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="/js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
-
