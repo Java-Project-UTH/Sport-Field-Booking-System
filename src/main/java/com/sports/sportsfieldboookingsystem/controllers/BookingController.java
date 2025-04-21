@@ -61,7 +61,7 @@ public class BookingController {
             model.addAttribute("endDateTime", endDateTime);
         }
 
-        return "bookingForm";
+        return "bookingform";
     }
 
     @PostMapping("/create")
@@ -82,9 +82,14 @@ public class BookingController {
             LocalDateTime startTime;
             LocalDateTime endTime;
             try {
+                System.out.println("Parsing start date time: " + startDateTime);
                 startTime = LocalDateTime.parse(startDateTime, DATE_TIME_FORMATTER);
+                System.out.println("Parsing end date time: " + endDateTime);
                 endTime = LocalDateTime.parse(endDateTime, DATE_TIME_FORMATTER);
+                System.out.println("Successfully parsed dates - Start: " + startTime + ", End: " + endTime);
             } catch (Exception e) {
+                System.err.println("Error parsing date time: " + e.getMessage());
+                e.printStackTrace();
                 return "redirect:/bookings/create/" + fieldId + "?error=invalidDateTimeFormat";
             }
 
@@ -93,14 +98,28 @@ public class BookingController {
                 return "redirect:/bookings/create/" + fieldId + "?error=invalidTimes";
             }
 
-            if (startTime.isBefore(LocalDateTime.now())) {
+            // Cho phép đặt sân trong vòng 1 tiếng tới
+            LocalDateTime now = LocalDateTime.now();
+            System.out.println("Current time: " + now + ", Start time: " + startTime);
+
+            // Chỉ kiểm tra nếu thời gian bắt đầu đã qua (không phải trong tương lai)
+            if (startTime.isBefore(now)) {
+                System.err.println("Cannot book for past time: start=" + startTime + ", now=" + now);
                 return "redirect:/bookings/create/" + fieldId + "?error=pastTime";
             }
 
             // Kiểm tra xem sân có khả dụng không
-            if (!fieldBookingService.isFieldAvailable(fieldId, startTime, endTime)) {
+            System.out.println("Checking field availability for field ID: " + fieldId + ", Start: " + startTime + ", End: " + endTime);
+            boolean isAvailable = fieldBookingService.isFieldAvailable(fieldId, startTime, endTime);
+            System.out.println("Field availability result: " + isAvailable);
+
+            if (!isAvailable) {
+                System.err.println("Field is not available for the selected time period");
                 return "redirect:/bookings/create/" + fieldId + "?error=fieldNotAvailable";
             }
+
+            System.out.println("Creating booking with parameters: username=" + loggedUser + ", fieldId=" + fieldId +
+                ", startTime=" + startTime + ", endTime=" + endTime + ", notes=" + notes + ", numberOfPlayers=" + numberOfPlayers);
 
             FieldBooking booking = fieldBookingService.createBooking(
                 loggedUser,
@@ -111,6 +130,8 @@ public class BookingController {
                 numberOfPlayers
             );
 
+            System.out.println("Booking created successfully with ID: " + booking.getId());
+
             // Chuyển hướng đến trang thanh toán
             return "redirect:/payment/" + booking.getId() + "?isNew=true";
 
@@ -118,7 +139,19 @@ public class BookingController {
             // Log lỗi để dễ debug
             System.err.println("Error creating booking: " + e.getMessage());
             e.printStackTrace();
-            return "redirect:/bookings/create/" + fieldId + "?error=" + e.getMessage().replace(" ", "+");
+
+            // Trả về thông báo lỗi cụ thể hơn
+            String errorMessage = e.getMessage();
+            if (errorMessage == null || errorMessage.isEmpty()) {
+                errorMessage = "Unknown error occurred";
+            }
+
+            // Giới hạn độ dài của thông báo lỗi để tránh URL quá dài
+            if (errorMessage.length() > 100) {
+                errorMessage = errorMessage.substring(0, 100) + "...";
+            }
+
+            return "redirect:/bookings/create/" + fieldId + "?error=" + errorMessage.replace(" ", "+");
         }
     }
 

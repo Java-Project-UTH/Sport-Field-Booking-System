@@ -724,6 +724,7 @@ a:hover {
     margin-right: 5px;
 }
 
+/* Sửa lỗi hiển thị sao ngược */
 .rating-input label:hover,
 .rating-input label:hover ~ label,
 .rating-input input:checked ~ label {

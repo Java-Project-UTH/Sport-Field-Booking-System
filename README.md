@@ -206,7 +206,7 @@ Hệ thống tự động tạo các tài khoản admin mặc định khi khởi
 ![Đánh giá](screenshots/feedback.png)
 
 ## 📄 Tài liệu API Swagger
-
+Thật ra mới làm có 1 api thôi test swagger
 Sau khi chạy ứng dụng, bạn có thể truy cập tài liệu API Swagger tại địa chỉ:
 http://localhost:8080/swagger-ui/index.html
 hoặc http://localhost:8080/v3/api-docs

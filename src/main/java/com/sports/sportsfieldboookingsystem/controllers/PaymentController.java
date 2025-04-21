@@ -113,19 +113,27 @@ public class PaymentController {
             HttpSession session,
             Model model) {
 
+        System.out.println("Processing payment for booking ID: " + bookingId + ", payment method: " + paymentMethod);
+
         String loggedUser = SessionHandler.getUsernameSession(session);
-        if (loggedUser == null) return "redirect:/login";
+        if (loggedUser == null) {
+            System.out.println("User not logged in, redirecting to login");
+            return "redirect:/login";
+        }
 
         try {
             Optional<FieldBooking> optionalBooking = fieldBookingService.getBookingById(bookingId);
             if (!optionalBooking.isPresent()) {
+                System.err.println("Booking not found with ID: " + bookingId);
                 return "redirect:/user/profile?error=bookingNotFound";
             }
 
             FieldBooking booking = optionalBooking.get();
+            System.out.println("Found booking: ID=" + booking.getId() + ", username=" + booking.getUsername() + ", totalPrice=" + booking.getTotalPrice());
 
             // Check if the booking belongs to the logged-in user
             if (!booking.getUsername().equals(loggedUser)) {
+                System.err.println("Unauthorized access: logged user " + loggedUser + " trying to access booking of user " + booking.getUsername());
                 return "redirect:/user/profile?error=unauthorized";
             }
 
@@ -133,14 +141,18 @@ public class PaymentController {
             PaymentMethod method;
             try {
                 method = PaymentMethod.valueOf(paymentMethod);
+                System.out.println("Payment method parsed: " + method);
             } catch (IllegalArgumentException e) {
+                System.err.println("Invalid payment method: " + paymentMethod + ", defaulting to CREDIT_CARD");
                 method = PaymentMethod.CREDIT_CARD; // Mặc định nếu không hợp lệ
             }
 
             // Tạo ghi chú từ thông tin thẻ (trong trường hợp thanh toán bằng thẻ)
             StringBuilder paymentNotes = new StringBuilder();
             if (method == PaymentMethod.CREDIT_CARD && cardNumber != null) {
-                paymentNotes.append("Card: ").append(maskCardNumber(cardNumber));
+                String maskedNumber = maskCardNumber(cardNumber);
+                System.out.println("Adding card info to notes: " + maskedNumber);
+                paymentNotes.append("Card: ").append(maskedNumber);
                 if (cardHolder != null) {
                     paymentNotes.append(", Holder: ").append(cardHolder);
                 }
@@ -153,6 +165,8 @@ public class PaymentController {
                 paymentNotes.append("Notes: ").append(notes);
             }
 
+            System.out.println("Creating payment with notes: " + paymentNotes.toString());
+
             // Tạo thanh toán mới
             Payment payment = paymentService.createPayment(
                 bookingId,
@@ -161,17 +175,25 @@ public class PaymentController {
                 paymentNotes.toString()
             );
 
+            System.out.println("Payment created with ID: " + payment.getId() + ", processing payment...");
+
             // Xử lý thanh toán (giả lập)
             payment = paymentService.processPayment(payment.getId());
 
             // Kiểm tra kết quả thanh toán
+            System.out.println("Payment processed, status: " + payment.getStatus());
             if (payment.getStatus() == PaymentStatus.COMPLETED) {
+                System.out.println("Payment completed successfully, redirecting to success page");
                 return "redirect:/payment/success/" + bookingId;
             } else {
+                System.err.println("Payment failed");
                 return "redirect:/payment/" + bookingId + "?error=paymentFailed";
             }
         } catch (Exception e) {
-            return "redirect:/payment/" + bookingId + "?error=" + e.getMessage();
+            System.err.println("Error processing payment: " + e.getMessage());
+            e.printStackTrace();
+            String errorMsg = e.getMessage() != null ? e.getMessage().replace(" ", "+") : "unknown+error";
+            return "redirect:/payment/" + bookingId + "?error=" + errorMsg;
         }
     }
 

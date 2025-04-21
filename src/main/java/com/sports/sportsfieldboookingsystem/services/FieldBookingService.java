@@ -48,38 +48,71 @@ public class FieldBookingService {
     }
 
     public boolean isFieldAvailable(Long fieldId, LocalDateTime startTime, LocalDateTime endTime) {
-        List<FieldBooking> overlappingBookings = fieldBookingRepository.findOverlappingBookings(fieldId, startTime, endTime);
-        return overlappingBookings.isEmpty();
+        System.out.println("Checking field availability in service: fieldId=" + fieldId + ", startTime=" + startTime + ", endTime=" + endTime);
+
+        try {
+            List<FieldBooking> overlappingBookings = fieldBookingRepository.findOverlappingBookings(fieldId, startTime, endTime);
+
+            if (!overlappingBookings.isEmpty()) {
+                System.out.println("Found " + overlappingBookings.size() + " overlapping bookings:");
+                for (FieldBooking booking : overlappingBookings) {
+                    System.out.println("  - Booking ID: " + booking.getId() + ", Start: " + booking.getStartTime() + ", End: " + booking.getEndTime() + ", Status: " + booking.getStatus());
+                }
+            } else {
+                System.out.println("No overlapping bookings found, field is available");
+            }
+
+            return overlappingBookings.isEmpty();
+        } catch (Exception e) {
+            System.err.println("Error checking field availability: " + e.getMessage());
+            e.printStackTrace();
+            // In case of error, assume field is not available for safety
+            return false;
+        }
     }
 
     public FieldBooking createBooking(String username, Long fieldId, LocalDateTime startTime, LocalDateTime endTime,
             String notes, Integer numberOfPlayers) {
 
+        System.out.println("Creating booking in service: username=" + username + ", fieldId=" + fieldId +
+            ", startTime=" + startTime + ", endTime=" + endTime + ", notes=" + notes + ", numberOfPlayers=" + numberOfPlayers);
+
         // Validate input parameters
         if (username == null || username.trim().isEmpty()) {
+            System.err.println("Username cannot be empty");
             throw new IllegalArgumentException("Username cannot be empty");
         }
 
         if (fieldId == null) {
+            System.err.println("Field ID cannot be null");
             throw new IllegalArgumentException("Field ID cannot be null");
         }
 
         if (startTime == null || endTime == null) {
+            System.err.println("Start time and end time cannot be null");
             throw new IllegalArgumentException("Start time and end time cannot be null");
         }
 
         if (startTime.isAfter(endTime)) {
+            System.err.println("Start time must be before end time: start=" + startTime + ", end=" + endTime);
             throw new IllegalArgumentException("Start time must be before end time");
         }
 
-        if (startTime.isBefore(LocalDateTime.now())) {
+        // Chỉ kiểm tra nếu thời gian bắt đầu đã qua (không phải trong tương lai)
+        LocalDateTime now = LocalDateTime.now();
+        if (startTime.isBefore(now)) {
+            System.err.println("Cannot book for past time: start=" + startTime + ", now=" + now);
             throw new IllegalArgumentException("Cannot book for past time");
         }
 
         // Check if field is available
-        if (!isFieldAvailable(fieldId, startTime, endTime)) {
+        boolean isAvailable = isFieldAvailable(fieldId, startTime, endTime);
+        if (!isAvailable) {
+            System.err.println("Field is not available for the selected time period");
             throw new IllegalArgumentException("Field is not available for the selected time period");
         }
+
+        System.out.println("All validations passed, proceeding with booking creation");
 
         // Calculate total price
         Optional<SportsField> optionalField = sportsFieldService.getFieldById(fieldId);
@@ -106,7 +139,10 @@ public class FieldBookingService {
         );
 
         try {
-            return fieldBookingRepository.save(booking);
+            System.out.println("Saving booking to database: " + booking);
+            FieldBooking savedBooking = fieldBookingRepository.save(booking);
+            System.out.println("Booking saved successfully with ID: " + savedBooking.getId());
+            return savedBooking;
         } catch (Exception e) {
             // Log lỗi để dễ debug
             System.err.println("Error saving booking: " + e.getMessage());

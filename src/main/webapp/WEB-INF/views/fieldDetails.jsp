@@ -158,10 +158,16 @@
                                 <div class="form-group">
                                     <label>Đánh giá:</label>
                                     <div class="rating-input">
-                                        <c:forEach begin="1" end="5" var="i">
-                                            <input type="radio" id="star${i}" name="rating" value="${i}" required>
-                                            <label for="star${i}">★</label>
-                                        </c:forEach>
+                                        <input type="radio" id="star5" name="rating" value="5" required>
+                                        <label for="star5">★</label>
+                                        <input type="radio" id="star4" name="rating" value="4" required>
+                                        <label for="star4">★</label>
+                                        <input type="radio" id="star3" name="rating" value="3" required>
+                                        <label for="star3">★</label>
+                                        <input type="radio" id="star2" name="rating" value="2" required>
+                                        <label for="star2">★</label>
+                                        <input type="radio" id="star1" name="rating" value="1" required>
+                                        <label for="star1">★</label>
                                     </div>
                                 </div>
 
@@ -184,10 +190,16 @@
                                     <div class="form-group">
                                         <label>Đánh giá:</label>
                                         <div class="rating-input edit-rating">
-                                            <c:forEach begin="1" end="5" var="i">
-                                                <input type="radio" id="edit-star${i}" name="rating" value="${i}" required>
-                                                <label for="edit-star${i}">★</label>
-                                            </c:forEach>
+                                            <input type="radio" id="edit-star5" name="rating" value="5" required>
+                                            <label for="edit-star5">★</label>
+                                            <input type="radio" id="edit-star4" name="rating" value="4" required>
+                                            <label for="edit-star4">★</label>
+                                            <input type="radio" id="edit-star3" name="rating" value="3" required>
+                                            <label for="edit-star3">★</label>
+                                            <input type="radio" id="edit-star2" name="rating" value="2" required>
+                                            <label for="edit-star2">★</label>
+                                            <input type="radio" id="edit-star1" name="rating" value="1" required>
+                                            <label for="edit-star1">★</label>
                                         </div>
                                     </div>
 
