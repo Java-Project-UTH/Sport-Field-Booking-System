@@ -169,9 +169,21 @@
                 </div>
             </c:if>
 
-            <form action="/user/update" method="post">
+            <form action="/user/update" method="post" enctype="multipart/form-data">
                 <div class="form-section">
                     <h3>Thông tin cơ bản</h3>
+
+                    <div class="avatar-upload-container" style="margin-bottom: 20px; text-align: center;">
+                        <div style="width: 150px; height: 150px; margin: 0 auto 15px; border-radius: 50%; overflow: hidden; border: 3px solid #eee;">
+                            <img id="avatar-preview" src="${empty user.avatarUrl ? '/images/profile-avatar.png' : user.avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar">Thay đổi ảnh đại diện</label>
+                            <input type="file" id="avatar" name="avatar" accept="image/*" style="display: block; margin: 10px auto;">
+                            <small>Chọn ảnh có kích thước tối đa 5MB</small>
+                        </div>
+                    </div>
+
                     <div class="edit-profile-form">
                         <div class="form-group">
                             <label for="username" class="required-field">Tên đăng nhập</label>
@@ -302,6 +314,32 @@
                     alert('Mật khẩu mới phải có ít nhất 6 ký tự.');
                     return;
                 }
+            }
+        });
+
+        // Xem trước ảnh đại diện
+        document.getElementById('avatar').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Kiểm tra kích thước file (tối đa 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Kích thước file quá lớn. Vui lòng chọn file nhỏ hơn 5MB.');
+                    event.target.value = ''; // Xóa file đã chọn
+                    return;
+                }
+
+                // Kiểm tra loại file
+                if (!file.type.match('image.*')) {
+                    alert('Vui lòng chọn file ảnh.');
+                    event.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         });
     </script>

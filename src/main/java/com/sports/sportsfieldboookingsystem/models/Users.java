@@ -32,7 +32,9 @@ public class Users {
     private Integer age;
     private String gender;
     private String address;
-    
+
+    private String avatarUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role = UserRole.USER; // Mặc định là USER
@@ -64,7 +66,8 @@ public class Users {
         this.created_at = new Date();
         this.updated_at = new Date();
         this.role = UserRole.USER;
-        
+        this.avatarUrl = "/images/profile-avatar.png"; // Ảnh mặc định
+
         // Nếu username là "admin", gán vai trò ADMIN
         if ("admin".equals(username)) {
             this.role = UserRole.ADMIN;
@@ -134,7 +137,7 @@ public class Users {
     public void setAddress(String address) {
         this.address = address;
     }
-    
+
     public UserRole getRole() {
         return role;
     }
@@ -157,5 +160,13 @@ public class Users {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

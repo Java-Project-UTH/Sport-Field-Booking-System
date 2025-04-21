@@ -1,5 +1,12 @@
 package com.sports.sportsfieldboookingsystem.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sports.sportsfieldboookingsystem.handlers.EncryptionHandler;
 import com.sports.sportsfieldboookingsystem.handlers.SessionHandler;
@@ -36,6 +44,8 @@ public class UserController {
             return "redirect:/login";
 
         Users user = userServices.findByUsername(loggedUser);
+        System.out.println("User profile loaded: " + loggedUser);
+        System.out.println("Avatar URL: " + (user.getAvatarUrl() != null ? user.getAvatarUrl() : "null"));
         model.addAttribute("user", user);
 
         // Get user's active bookings
@@ -76,6 +86,7 @@ public class UserController {
             @RequestParam(required = false) String currentPassword,
             @RequestParam(required = false) String newPassword,
             @RequestParam(required = false) String confirmPassword,
+            @RequestParam(required = false) MultipartFile avatar,
             HttpSession session) {
 
         String loggedUser = SessionHandler.getUsernameSession(session);
@@ -118,6 +129,41 @@ public class UserController {
             // Cập nhật mật khẩu mới
             String hashedPassword = EncryptionHandler.encryptPassword(newPassword);
             user.setPassword(hashedPassword);
+        }
+
+        // Xử lý tải lên ảnh đại diện nếu có
+        if (avatar != null && !avatar.isEmpty()) {
+            try {
+                // Tạo thư mục lưu trữ ảnh nếu chưa tồn tại
+                String uploadDir = "src/main/resources/static/images/avatars";
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Tạo tên file duy nhất
+                String originalFilename = avatar.getOriginalFilename();
+                String fileExtension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                }
+                String filename = loggedUser + "_" + System.currentTimeMillis() + fileExtension;
+
+                // Lưu file
+                Path filePath = uploadPath.resolve(filename);
+                Files.copy(avatar.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                // Cập nhật đường dẫn ảnh trong cơ sở dữ liệu
+                user.setAvatarUrl("/images/avatars/" + filename);
+
+                System.out.println("Avatar uploaded successfully: " + filename);
+                System.out.println("Avatar URL set to: " + user.getAvatarUrl());
+
+            } catch (IOException e) {
+                System.err.println("Error uploading avatar: " + e.getMessage());
+                e.printStackTrace();
+                // Tiếp tục cập nhật thông tin người dùng ngay cả khi tải ảnh lên thất bại
+            }
         }
 
         // Lưu thông tin người dùng

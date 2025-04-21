@@ -283,7 +283,11 @@
         <div class="profile-container">
             <div class="profile-sidebar">
                 <div class="profile-avatar">
-                    <img src="/images/profile-avatar.png" alt="Avatar">
+                    <img src="${empty user.avatarUrl ? '/images/profile-avatar.png' : user.avatarUrl}" alt="Avatar" onerror="this.src='/images/profile-avatar.png'">
+                    <!-- Debug info -->
+                    <div style="display: none;">
+                        <p>Avatar URL: ${user.avatarUrl}</p>
+                    </div>
                 </div>
                 <h3>${user.name}</h3>
                 <div class="profile-role">
