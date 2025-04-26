@@ -46,19 +46,32 @@ public class UserController {
         Users user = userServices.findByUsername(loggedUser);
         System.out.println("User profile loaded: " + loggedUser);
         System.out.println("Avatar URL: " + (user.getAvatarUrl() != null ? user.getAvatarUrl() : "null"));
+        System.out.println("User role: " + user.getRole());
         model.addAttribute("user", user);
 
-        // Get user's active bookings
-        List<FieldBooking> activeBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.CONFIRMED);
-        model.addAttribute("activeBookings", activeBookings);
+        try {
+            // Get user's active bookings
+            List<FieldBooking> activeBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.CONFIRMED);
+            model.addAttribute("activeBookings", activeBookings);
+            System.out.println("Active bookings: " + activeBookings.size());
 
-        // Get user's pending bookings
-        List<FieldBooking> pendingBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.PENDING);
-        model.addAttribute("pendingBookings", pendingBookings);
+            // Get user's pending bookings
+            List<FieldBooking> pendingBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.PENDING);
+            model.addAttribute("pendingBookings", pendingBookings);
+            System.out.println("Pending bookings: " + pendingBookings.size());
 
-        // Get user's completed bookings
-        List<FieldBooking> completedBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.COMPLETED);
-        model.addAttribute("completedBookings", completedBookings);
+            // Get user's completed bookings
+            List<FieldBooking> completedBookings = fieldBookingService.getUserBookingsByStatus(loggedUser, BookingStatus.COMPLETED);
+            model.addAttribute("completedBookings", completedBookings);
+            System.out.println("Completed bookings: " + completedBookings.size());
+        } catch (Exception e) {
+            System.err.println("Error loading bookings: " + e.getMessage());
+            e.printStackTrace();
+            // Provide empty lists in case of error
+            model.addAttribute("activeBookings", java.util.Collections.emptyList());
+            model.addAttribute("pendingBookings", java.util.Collections.emptyList());
+            model.addAttribute("completedBookings", java.util.Collections.emptyList());
+        }
 
         return "profile";
     }

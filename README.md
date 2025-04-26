@@ -199,18 +199,36 @@ Hệ thống tự động tạo các tài khoản admin mặc định khi khởi
 ### Danh sách sân
 ![Danh sách sân](screenshots/fields.png)
 
-### Trang cá nhân
-![Trang cá nhân](screenshots/profile.png)
+### Đặt sân
+![Đặt sân](screenshots/bookingform.png)
+
+### Lịch sân
+![Lịch sân](screenshots/schedule.png)
 
 ### Đánh giá và phản hồi
 ![Đánh giá](screenshots/feedback.png)
 
+### Sân yêu thích
+![Sân yêu thích](screenshots/favorites.png)
+
+### Chỉnh sửa thông tin cá nhân
+![Chỉnh sửa thông tin cá nhân](screenshots/editprofile.png)
+
+### Đăng ký thành viên
+![Đăng ký thành viên](screenshots/registermembership.png)
+
+### Thành viên
+![Thành viên](screenshots/membership.png)
+
+### Lịch sử thành viên
+![Lịch sử thành viên](screenshots/historymembership.png)
+
 ## 📄 Tài liệu API Swagger
-Thật ra mới làm có 1 api thôi test swagger
+
 Sau khi chạy ứng dụng, bạn có thể truy cập tài liệu API Swagger tại địa chỉ:
 http://localhost:8080/swagger-ui/index.html
 hoặc http://localhost:8080/v3/api-docs
-
+thật ra có 1 api hoạt động nên cũng không cần mở Swagger đâu.
 ## 🤝 Đóng góp
 
 Chúng tôi rất hoan nghênh mọi đóng góp để cải thiện dự án. Nếu bạn muốn đóng góp, vui lòng:

@@ -21,6 +21,7 @@
                     <li><a href="/admin/fields">Quản lý sân</a></li>
                     <li><a href="/admin/bookings">Quản lý đặt sân</a></li>
                     <li><a href="/admin/users" class="active">Quản lý người dùng</a></li>
+                    <li><a href="/user/profile">Thông tin cá nhân</a></li>
                     <li><a href="/">Về trang chủ</a></li>
                 </ul>
             </div>

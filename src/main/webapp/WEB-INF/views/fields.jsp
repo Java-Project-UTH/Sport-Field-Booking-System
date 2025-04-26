@@ -5,30 +5,56 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sân thể thao - Sports Field Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/icons.css">
+    <link rel="stylesheet" href="/css/field-images.css">
+    <style>
+        .favorite-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 5px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .favorite-icon.active {
+            color: #ff5252;
+        }
+
+        .field-image {
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-brand">Sports Field Booking</div>
-            <ul class="navbar-links">
-                <li><a href="/">Trang chủ</a></li>
-                <li><a href="/fields" class="active">Sân thể thao</a></li>
-                <c:if test="${not empty loggedUser}">
-                    <li><a href="/user/profile">Trang cá nhân</a></li>
-                </c:if>
-            </ul>
-            <div class="navbar-account">
-                <c:if test="${empty loggedUser}">
-                    <a href="/login">Đăng nhập</a> | <a href="/register">Đăng ký</a>
-                </c:if>
-                <c:if test="${not empty loggedUser}">
-                    <span>Xin chào, ${loggedUser}</span> | <a href="/logout">Đăng xuất</a>
-                </c:if>
-            </div>
-        </div>
+    <div class="main-container">
+        <!-- Include Sidebar -->
+        <jsp:include page="components/sidebar.jsp" />
+
+        <div class="main-content">
+            <!-- Include Top Navbar -->
+            <jsp:include page="components/topnav.jsp" />
+
+            <div class="container">
 
         <div class="fields-container">
             <div class="fields-sidebar">
@@ -95,7 +121,12 @@
                 <h2>Danh sách sân thể thao</h2>
 
                 <c:if test="${empty fields}">
-                    <p class="no-data">Không tìm thấy sân thể thao nào phù hợp với tiêu chí tìm kiếm.</p>
+                    <div class="no-data">
+                        Không tìm thấy sân thể thao nào phù hợp với tiêu chí tìm kiếm.
+                        <a href="/fields" class="btn btn-primary" style="margin-top: 20px;">
+                            <i class="fas fa-sync-alt"></i> Xem tất cả sân
+                        </a>
+                    </div>
                 </c:if>
 
                 <c:if test="${not empty fields}">
@@ -103,11 +134,18 @@
                         <c:forEach items="${fields}" var="field">
                             <div class="field-card">
                                 <div class="field-image">
-                                    <img src="${empty field.imageUrl ? '/images/default-field.jpg' : field.imageUrl}" alt="${field.fieldName}">
+                                    <img src="${empty field.imageUrl ? '/images/football1.jpg' : field.imageUrl}" alt="${field.fieldName}"
+                                         loading="lazy" onerror="this.src='/images/football1.jpg'">
+                                    <c:if test="${not empty loggedUser}">
+                                        <div class="favorite-icon" data-field-id="${field.id}" onclick="toggleFavorite(this, ${field.id})">
+                                            <i class="far fa-heart"></i>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <div class="field-info">
                                     <h3>${field.fieldName}</h3>
                                     <p class="field-type">
+                                        <i class="fas fa-futbol"></i>
                                         <c:choose>
                                             <c:when test="${field.fieldType eq 'FOOTBALL'}">Sân bóng đá</c:when>
                                             <c:when test="${field.fieldType eq 'BASKETBALL'}">Sân bóng rổ</c:when>
@@ -118,21 +156,24 @@
                                             <c:otherwise>${field.fieldType}</c:otherwise>
                                         </c:choose>
                                     </p>
-                                    <p class="field-location"><i class="icon-location"></i> ${field.location}</p>
-                                    <p class="field-price"><fmt:formatNumber value="${field.pricePerHour}" type="currency" currencySymbol=""/> VNĐ/giờ</p>
+                                    <p class="field-location"><i class="fas fa-map-marker-alt"></i> ${field.location}</p>
+                                    <p class="field-price"><i class="fas fa-tag"></i> <fmt:formatNumber value="${field.pricePerHour}" type="number" pattern="#,###"/> VNĐ/giờ</p>
                                     <p class="field-features">
                                         <span class="${field.isIndoor ? 'feature-indoor' : 'feature-outdoor'}">
+                                            <i class="fas ${field.isIndoor ? 'fa-home' : 'fa-cloud-sun'}"></i>
                                             ${field.isIndoor ? 'Trong nhà' : 'Ngoài trời'}
                                         </span>
-                                        <span class="${field.hasLighting ? 'feature-lighting' : ''}">
-                                            ${field.hasLighting ? 'Có đèn chiếu sáng' : ''}
-                                        </span>
+                                        <c:if test="${field.hasLighting}">
+                                            <span class="feature-lighting">
+                                                <i class="fas fa-lightbulb"></i> Có đèn chiếu sáng
+                                            </span>
+                                        </c:if>
                                     </p>
                                 </div>
                                 <div class="field-actions">
-                                    <a href="/fields/${field.id}" class="btn btn-secondary">Chi tiết</a>
+                                    <a href="/fields/${field.id}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> Chi tiết</a>
                                     <c:if test="${not empty loggedUser}">
-                                        <a href="/bookings/create/${field.id}" class="btn btn-primary">Đặt sân</a>
+                                        <a href="/bookings/create/${field.id}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Đặt sân</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -141,9 +182,14 @@
                 </c:if>
             </div>
         </div>
+            </div>
+        </div>
     </div>
 
+    <!-- JavaScript -->
     <script src="/js/script.js"></script>
+    <script src="/js/sidebar.js"></script>
+    <script src="/js/image-optimizer.js"></script>
     <script>
         document.getElementById('resetFilter').addEventListener('click', function() {
             document.getElementById('type').value = '';
@@ -154,6 +200,63 @@
             });
             document.getElementById('filterForm').submit();
         });
+
+        // Check favorite status for each field
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoriteIcons = document.querySelectorAll('.favorite-icon');
+            favoriteIcons.forEach(icon => {
+                const fieldId = icon.getAttribute('data-field-id');
+                checkFavoriteStatus(icon, fieldId);
+            });
+        });
+
+        function checkFavoriteStatus(element, fieldId) {
+            fetch('/favorites/check/' + fieldId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.isFavorite) {
+                        element.classList.add('active');
+                        element.querySelector('i').classList.remove('far');
+                        element.querySelector('i').classList.add('fas');
+                    }
+                })
+                .catch(error => console.error('Error checking favorite status:', error));
+        }
+
+        function toggleFavorite(element, fieldId) {
+            fetch('/favorites/toggle/' + fieldId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.isFavorite) {
+                        // Added to favorites
+                        element.classList.add('active');
+                        element.querySelector('i').classList.remove('far');
+                        element.querySelector('i').classList.add('fas');
+                    } else {
+                        // Removed from favorites
+                        element.classList.remove('active');
+                        element.querySelector('i').classList.remove('fas');
+                        element.querySelector('i').classList.add('far');
+                    }
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+            });
+
+            // Prevent event bubbling
+            event.stopPropagation();
+            return false;
+        }
     </script>
 </body>
 </html>

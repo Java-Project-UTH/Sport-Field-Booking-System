@@ -7,6 +7,39 @@
     <meta charset="UTF-8">
     <title>${field.fieldName} - Sports Field Booking</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/field-images.css">
+    <style>
+        .favorite-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fff;
+            color: #555;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .favorite-btn i {
+            margin-right: 5px;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .favorite-btn.active {
+            border-color: #ff5252;
+        }
+
+        .favorite-btn.active i {
+            color: #ff5252;
+        }
+
+        .favorite-btn:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -51,7 +84,8 @@
             <div class="field-details-content">
                 <div class="field-details-main">
                     <div class="field-details-image">
-                        <img src="${empty field.imageUrl ? '/images/default-field.jpg' : field.imageUrl}" alt="${field.fieldName}">
+                        <img src="${empty field.imageUrl ? '/images/football1.jpg' : field.imageUrl}" alt="${field.fieldName}"
+                             loading="lazy" onerror="this.src='/images/football1.jpg'">
                     </div>
 
                     <div class="field-details-info">
@@ -101,6 +135,9 @@
 
                         <div class="field-details-actions">
                             <c:if test="${not empty loggedUser}">
+                                <button id="favoriteBtn" class="favorite-btn" onclick="toggleFavorite(${field.id})">
+                                    <i class="far fa-heart"></i> <span id="favoriteText">Thêm vào yêu thích</span>
+                                </button>
                                 <a href="/bookings/create/${field.id}" class="btn btn-primary btn-large">Đặt sân ngay</a>
                                 <a href="/schedule/field/${field.id}" class="btn btn-secondary">Xem lịch đặt sân</a>
                             </c:if>
@@ -257,6 +294,66 @@
                 modal.style.display = 'none';
             }
         });
+    </script>
+    <script src="/js/image-optimizer.js"></script>
+    <script>
+        // Check if field is in favorites
+        document.addEventListener('DOMContentLoaded', function() {
+            <c:if test="${not empty loggedUser}">
+                checkFavoriteStatus(${field.id});
+            </c:if>
+        });
+
+        function checkFavoriteStatus(fieldId) {
+            fetch('/favorites/check/' + fieldId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.isFavorite) {
+                        const favoriteBtn = document.getElementById('favoriteBtn');
+                        favoriteBtn.classList.add('active');
+                        favoriteBtn.querySelector('i').classList.remove('far');
+                        favoriteBtn.querySelector('i').classList.add('fas');
+                        document.getElementById('favoriteText').textContent = 'Đã thêm vào yêu thích';
+                    }
+                })
+                .catch(error => console.error('Error checking favorite status:', error));
+        }
+
+        function toggleFavorite(fieldId) {
+            fetch('/favorites/toggle/' + fieldId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const favoriteBtn = document.getElementById('favoriteBtn');
+                    const favoriteText = document.getElementById('favoriteText');
+
+                    if (data.isFavorite) {
+                        // Added to favorites
+                        favoriteBtn.classList.add('active');
+                        favoriteBtn.querySelector('i').classList.remove('far');
+                        favoriteBtn.querySelector('i').classList.add('fas');
+                        favoriteText.textContent = 'Đã thêm vào yêu thích';
+                    } else {
+                        // Removed from favorites
+                        favoriteBtn.classList.remove('active');
+                        favoriteBtn.querySelector('i').classList.remove('fas');
+                        favoriteBtn.querySelector('i').classList.add('far');
+                        favoriteText.textContent = 'Thêm vào yêu thích';
+                    }
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+            });
+        }
     </script>
 </body>
 </html>

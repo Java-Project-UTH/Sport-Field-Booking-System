@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Field Booking System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
     <style>
         :root {
             --primary-color: #2196F3;
@@ -402,29 +404,13 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container navbar-content">
-            <a href="/" class="navbar-brand">Sports Field Booking</a>
-            <ul class="navbar-links">
-                <li><a href="/fields">Sân thể thao</a></li>
-                <li><a href="#features">Tính năng</a></li>
-                <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="#contact">Liên hệ</a></li>
-            </ul>
-            <div class="navbar-account">
-                <c:if test="${empty loggedUser}">
-                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
-                    <a href="/register"><i class="fas fa-user-plus"></i> Đăng ký</a>
-                </c:if>
-                <c:if test="${not empty loggedUser}">
-                    <span><i class="fas fa-user"></i> Xin chào, ${loggedUser}</span>
-                    <a href="/user/profile"><i class="fas fa-user-circle"></i> Trang cá nhân</a>
-                    <a href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
-                </c:if>
-            </div>
-        </div>
-    </nav>
+    <div class="main-container">
+        <!-- Include Sidebar -->
+        <jsp:include page="components/sidebar.jsp" />
+
+        <div class="main-content">
+            <!-- Include Top Navbar -->
+            <jsp:include page="components/topnav.jsp" />
 
     <!-- Hero Section -->
     <section class="hero">
@@ -529,55 +515,60 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Sports Field Booking</h3>
-                    <p>Hệ thống đặt sân thể thao trực tuyến hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm và đặt sân phù hợp với nhu cầu của mình.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+            <!-- Footer -->
+            <footer class="footer" id="contact">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h3>Sports Field Booking</h3>
+                            <p>Hệ thống đặt sân thể thao trực tuyến hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm và đặt sân phù hợp với nhu cầu của mình.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Liên kết nhanh</h3>
+                            <ul class="footer-links">
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/fields">Sân thể thao</a></li>
+                                <li><a href="#features">Tính năng</a></li>
+                                <li><a href="#services">Dịch vụ</a></li>
+                                <li><a href="/login">Đăng nhập</a></li>
+                                <li><a href="/register">Đăng ký</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Dịch vụ</h3>
+                            <ul class="footer-links">
+                                <li><a href="/fields?type=FOOTBALL">Sân bóng đá</a></li>
+                                <li><a href="/fields?type=TENNIS">Sân tennis</a></li>
+                                <li><a href="/fields?type=BADMINTON">Sân cầu lông</a></li>
+                                <li><a href="/fields?type=BASKETBALL">Sân bóng rổ</a></li>
+                                <li><a href="/fields?type=VOLLEYBALL">Sân bóng chuyền</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Liên hệ</h3>
+                            <ul class="footer-links">
+                                <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                                <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
+                                <li><i class="fas fa-envelope"></i> info@sportsbooking.com</li>
+                                <li><i class="fas fa-clock"></i> Thứ 2 - Chủ nhật: 8:00 - 22:00</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 Sports Field Booking System. All Rights Reserved.</p>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Liên kết nhanh</h3>
-                    <ul class="footer-links">
-                        <li><a href="/">Trang chủ</a></li>
-                        <li><a href="/fields">Sân thể thao</a></li>
-                        <li><a href="#features">Tính năng</a></li>
-                        <li><a href="#services">Dịch vụ</a></li>
-                        <li><a href="/login">Đăng nhập</a></li>
-                        <li><a href="/register">Đăng ký</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Dịch vụ</h3>
-                    <ul class="footer-links">
-                        <li><a href="/fields?type=FOOTBALL">Sân bóng đá</a></li>
-                        <li><a href="/fields?type=TENNIS">Sân tennis</a></li>
-                        <li><a href="/fields?type=BADMINTON">Sân cầu lông</a></li>
-                        <li><a href="/fields?type=BASKETBALL">Sân bóng rổ</a></li>
-                        <li><a href="/fields?type=VOLLEYBALL">Sân bóng chuyền</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Liên hệ</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
-                        <li><i class="fas fa-phone"></i> (028) 1234 5678</li>
-                        <li><i class="fas fa-envelope"></i> info@sportsbooking.com</li>
-                        <li><i class="fas fa-clock"></i> Thứ 2 - Chủ nhật: 8:00 - 22:00</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Sports Field Booking System. All Rights Reserved.</p>
-            </div>
+            </footer>
         </div>
-    </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/js/sidebar.js"></script>
 </body>
 </html>

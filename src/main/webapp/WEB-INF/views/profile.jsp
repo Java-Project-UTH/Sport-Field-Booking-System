@@ -299,11 +299,13 @@
                 <p>${user.email}</p>
                 <ul class="profile-menu">
                     <li><a href="#profile-info" class="active"><i class="fas fa-user"></i> Thông tin cá nhân</a></li>
-                    <li><a href="#active-bookings"><i class="fas fa-calendar-check"></i> Đặt sân hiện tại</a></li>
-                    <li><a href="#pending-bookings"><i class="fas fa-clock"></i> Đặt sân chờ xác nhận</a></li>
-                    <li><a href="#completed-bookings"><i class="fas fa-history"></i> Lịch sử đặt sân</a></li>
+                    <c:if test="${user.role ne 'ADMIN'}">
+                        <li><a href="#active-bookings"><i class="fas fa-calendar-check"></i> Đặt sân hiện tại</a></li>
+                        <li><a href="#pending-bookings"><i class="fas fa-clock"></i> Đặt sân chờ xác nhận</a></li>
+                        <li><a href="#completed-bookings"><i class="fas fa-history"></i> Lịch sử đặt sân</a></li>
+                    </c:if>
                     <c:if test="${user.role eq 'ADMIN'}">
-                        <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Quản trị</a></li>
+                        <li><a href="/admin"><i class="fas fa-tachometer-alt"></i> Quản trị</a></li>
                     </c:if>
                 </ul>
             </div>
@@ -356,6 +358,7 @@
                     </div>
                 </div>
 
+                <c:if test="${user.role ne 'ADMIN'}">
                 <div id="active-bookings" class="profile-section">
                     <h2>Đặt sân hiện tại</h2>
                     <c:if test="${empty activeBookings}">
@@ -458,6 +461,7 @@
                         </div>
                     </c:if>
                 </div>
+                </c:if>
             </div>
         </div>
     </div>

@@ -433,9 +433,26 @@ a:hover {
 
 .no-data {
     text-align: center;
-    padding: 30px;
+    padding: 50px 30px;
     color: #757575;
-    font-style: italic;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-data::before {
+    content: '\f119'; /* Sad face icon */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #9e9e9e;
 }
 
 /* Fields List */
@@ -471,15 +488,19 @@ a:hover {
 .fields-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
 .field-card {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .field-card:hover {
@@ -488,8 +509,9 @@ a:hover {
 }
 
 .field-image {
-    height: 180px;
+    height: 200px;
     overflow: hidden;
+    position: relative;
 }
 
 .field-image img {
@@ -497,6 +519,18 @@ a:hover {
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    display: block;
+}
+
+.field-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
 }
 
 .field-card:hover .field-image img {
@@ -504,7 +538,8 @@ a:hover {
 }
 
 .field-info {
-    padding: 15px;
+    padding: 20px;
+    flex: 1;
 }
 
 .field-info h3 {
@@ -515,21 +550,45 @@ a:hover {
 .field-type {
     color: #2196F3;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.field-type i {
+    margin-right: 8px;
+    font-size: 16px;
 }
 
 .field-location {
     color: #757575;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.field-location i {
+    margin-right: 8px;
+    color: #FF5722;
+    font-size: 16px;
 }
 
 .field-price {
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    color: #4CAF50;
+}
+
+.field-price i {
+    margin-right: 8px;
+    font-size: 16px;
 }
 
 .field-features {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 15px;
 }
@@ -537,9 +596,17 @@ a:hover {
 .feature-indoor,
 .feature-outdoor,
 .feature-lighting {
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 4px;
+    font-size: 13px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.feature-indoor i,
+.feature-outdoor i,
+.feature-lighting i {
+    margin-right: 5px;
 }
 
 .feature-indoor {
@@ -558,9 +625,50 @@ a:hover {
 }
 
 .field-actions {
-    padding: 0 15px 15px;
+    padding: 0 20px 20px;
     display: flex;
     gap: 10px;
+    margin-top: auto;
+}
+
+.field-actions .btn {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.field-actions .btn i {
+    margin-right: 5px;
+}
+
+.field-actions .btn-primary {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+}
+
+.field-actions .btn-primary:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.field-actions .btn-secondary {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.field-actions .btn-secondary:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Field Details */
@@ -969,12 +1077,53 @@ a:hover {
     .booking-info {
         margin-bottom: 15px;
     }
+
+    .fields-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .field-image {
+        height: 180px;
+    }
 }
 
 @media (max-width: 576px) {
     .fields-grid {
         grid-template-columns: 1fr;
     }
+
+    .field-card {
+        max-width: 100%;
+    }
+
+    .field-image {
+        height: 200px;
+    }
+
+    .field-info {
+        padding: 15px;
+    }
+
+    .field-actions {
+        padding: 0 15px 15px;
+    }
+
+    .filter-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-buttons button {
+        width: 100%;
+    }
+}
+
+/* Fix for duplicate media query */
+@media (max-width: 480px) {
 
     .field-card.horizontal {
         flex-direction: column;

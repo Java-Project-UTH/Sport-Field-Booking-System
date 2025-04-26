@@ -21,11 +21,12 @@
                     <li><a href="/admin/fields" class="active">Quản lý sân</a></li>
                     <li><a href="/admin/bookings">Quản lý đặt sân</a></li>
                     <li><a href="/admin/users">Quản lý người dùng</a></li>
+                    <li><a href="/user/profile">Thông tin cá nhân</a></li>
                     <li><a href="/">Về trang chủ</a></li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="admin-content">
             <div class="admin-header">
                 <h1>Quản lý sân thể thao</h1>
@@ -34,7 +35,7 @@
                     <a href="/logout" class="btn btn-sm btn-secondary">Đăng xuất</a>
                 </div>
             </div>
-            
+
             <c:if test="${param.success eq 'added'}">
                 <div class="success-message">Thêm sân thành công!</div>
             </c:if>
@@ -44,15 +45,15 @@
             <c:if test="${param.success eq 'deleted'}">
                 <div class="success-message">Xóa sân thành công!</div>
             </c:if>
-            
+
             <c:if test="${param.error eq 'notFound'}">
                 <div class="error-message">Không tìm thấy sân!</div>
             </c:if>
-            
+
             <div class="admin-actions">
                 <a href="/admin/fields/add" class="btn btn-primary">Thêm sân mới</a>
             </div>
-            
+
             <div class="admin-table-container">
                 <table class="admin-table">
                     <thead>
@@ -101,7 +102,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="/js/script.js"></script>
 </body>
 </html>

@@ -132,8 +132,18 @@ public class BookingController {
 
             System.out.println("Booking created successfully with ID: " + booking.getId());
 
-            // Chuyển hướng đến trang thanh toán
-            return "redirect:/payment/" + booking.getId() + "?isNew=true";
+            // Lấy thông tin sân để hiển thị trong trang xác nhận
+            Optional<SportsField> optionalField = sportsFieldService.getFieldById(fieldId);
+            if (optionalField.isPresent()) {
+                model.addAttribute("field", optionalField.get());
+            }
+
+            // Thêm thông tin đặt sân vào model
+            model.addAttribute("booking", booking);
+            model.addAttribute("loggedUser", loggedUser);
+
+            // Hiển thị trang xác nhận đặt sân
+            return "bookingConfirmation";
 
         } catch (Exception e) {
             // Log lỗi để dễ debug
@@ -181,6 +191,35 @@ public class BookingController {
         }
 
         return "bookingDetails";
+    }
+
+    @GetMapping("/confirmation/{id}")
+    public String getBookingConfirmation(@PathVariable Long id, HttpSession session, Model model) {
+        String loggedUser = SessionHandler.getUsernameSession(session);
+        if (loggedUser == null) return "redirect:/login";
+
+        Optional<FieldBooking> optionalBooking = fieldBookingService.getBookingById(id);
+        if (!optionalBooking.isPresent()) {
+            return "redirect:/user/profile?error=bookingNotFound";
+        }
+
+        FieldBooking booking = optionalBooking.get();
+
+        // Check if the booking belongs to the logged-in user
+        if (!booking.getUsername().equals(loggedUser)) {
+            return "redirect:/user/profile?error=unauthorized";
+        }
+
+        // Get field details
+        Optional<SportsField> optionalField = sportsFieldService.getFieldById(booking.getFieldId());
+        if (optionalField.isPresent()) {
+            model.addAttribute("field", optionalField.get());
+        }
+
+        model.addAttribute("booking", booking);
+        model.addAttribute("loggedUser", loggedUser);
+
+        return "bookingConfirmation";
     }
 
     @PostMapping("/{id}/cancel")
